@@ -12,6 +12,7 @@ import 'app/modules/administrador/pages/administrador_screen.dart';
 
 void main() {
   runApp(
+
     ChangeNotifierProvider(
       create: (context) => AppState(),
       child: MyApp(),
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
       routes: {
         '/home': (context) => HomeScreen(),
         '/localizacao': (context) => LocalizacaoScreen(),

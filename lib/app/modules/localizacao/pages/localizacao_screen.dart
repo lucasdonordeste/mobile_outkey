@@ -82,7 +82,7 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
                   });
                 },
                 child:
-                    //aparecer um loading de 3 segundos depois de clicar no botão continuar
+
                     LoadingOverlay(isLoading: _saving, child: Text('Continuar'),
                         progressIndicator: CircularProgressIndicator()),
 
