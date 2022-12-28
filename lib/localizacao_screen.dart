@@ -23,14 +23,22 @@ class LocalizacaoScreen extends StatelessWidget {
               child: Text('Dar permissão'),
               onPressed: () {
                 // Dê a permissão de acesso à localização aqui
-
-                appState.setLocalizacaoAtual('São Paulo');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AdministradorScreen(),
-                  ),
-                );
+                appState.setLocalizacaoAtual('São Paulo, SP');
+                if (appState.nivelAcesso == 'A') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdministradorScreen(),
+                    ),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LeitorScreen(),
+                    ),
+                  );
+                }
               },
             ),
           ],
