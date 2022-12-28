@@ -29,7 +29,7 @@ class _LeitorScreenState extends State<LeitorScreen> {
 
 
             Text('Sua idade: ${appState.idade}'),
-            Text('Sua localização atual: ${appState.localizacaoAtual}'),
+            Text('Sua localização atual: ${appState.latitude} | ${appState.longitude}'),
             Container(
               height: 200,
               child: ListView.builder(

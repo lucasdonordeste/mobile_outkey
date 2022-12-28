@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mobile_outkey/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState with ChangeNotifier {
@@ -9,6 +10,8 @@ class AppState with ChangeNotifier {
   late String _cpf = '';
   late int _idade = 0;
   late String _localizacaoAtual = '';
+
+ UserController userController = UserController();
   List<Map<String, dynamic>> _outrosAdministradores = [
     {
       'nome': 'Administrador 1',
@@ -102,6 +105,10 @@ class AppState with ChangeNotifier {
 
   String get localizacaoAtual => _localizacaoAtual;
 
+  String get latitude => userController.lat.toString();
+
+  String get longitude => userController.long.toString();
+
   List<Map<String, dynamic>> get outrosAdministradores =>
       _outrosAdministradores;
 
@@ -179,5 +186,13 @@ if (_nivelAcesso == 'Administrador') {
 
     }
 
+  }
+
+  void setLatitude(int i) {
+  userController.lat;
+  }
+
+  void setLongitude(int i) {
+  userController.long;
   }
 }

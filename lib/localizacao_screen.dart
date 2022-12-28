@@ -51,6 +51,9 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
             ElevatedButton(
                 onPressed: () {
 
+                  //salvar a latitude e longitude no appState
+                  appState.setLatitude(1);
+
 
 
 

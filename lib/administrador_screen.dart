@@ -29,7 +29,7 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
             Text('Seu nome: ${appState.nome}'),
             Text('Seu CPF: ${appState.cpf}'),
             Text('Sua idade: ${appState.idade}'),
-            Text('Sua localização atual: ${appState.localizacaoAtual}'),
+            Text('Sua localização atual: ${appState.latitude} | ${appState.longitude}'),
             _editandoDados
                 ? Container(
                     padding: EdgeInsets.all(8.0),
