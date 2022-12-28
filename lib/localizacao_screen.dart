@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:mobile_outkey/administrador_screen.dart';
+import 'package:mobile_outkey/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart' as ph;
 import 'package:geolocator/geolocator.dart';
@@ -36,17 +37,8 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
 
   @override
   void initState() {
+    listenPosition();
     super.initState();
-    loadLoginState().then((isLoggedIn) {
-      if (isLoggedIn) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LocalizacaoScreen(),
-          ),
-        );
-      }
-    });
   }
 
   listenPosition() async {
@@ -100,7 +92,9 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
     Widget build(BuildContext context) {
       final appState = Provider.of<AppState>(context);
       return Scaffold(
-
+        appBar: AppBar(
+          title: Text('Solicitação de localização'),
+        ),
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -124,25 +118,20 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AdministradorScreen(),
+                  builder: (context) => HomeScreen(),
                 ),
               );
             } else {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LeitorScreen(),
+                  builder: (context) => HomeScreen(),
                 ),
               );
             }
-          }, child: const Text('Continuar')),
+          }, child: Text('Continuar')),
         ),
-      ])),
-    );
+       ])),
+      );
+    }
   }
-
-  loadLoginState() {
-   //levar para a home screen se o usuário já estiver logado
-    return Future.value(false);
-  }
-}

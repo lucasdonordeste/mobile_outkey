@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_outkey/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -65,27 +66,53 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 child: Text('Entrar'),
                 onPressed: () {
+
+
                   if (_cpfController.text == '12345678900' &&
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('A');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LocalizacaoScreen(),
-                      ),
-                    );
+                    //se o usuario estiver logado levar para a tela de home
+                    //se nao estiver logadodeixar na tela de login
+                    if (appState.logado) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                      );
+                    }
+
                   } else if (_cpfController.text == '12345678901' &&
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('L');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LocalizacaoScreen(),
-                      ),
-                    );
+                    //se o usuario estiver logado levar para a tela de home
+                    //se nao estiver logadodeixar na tela de login
+                    if (appState.logado) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                      );
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ),
+                      );
+                    }
                   }
+
                 },
               ),
             ),
