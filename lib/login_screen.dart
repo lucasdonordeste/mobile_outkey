@@ -6,8 +6,15 @@ import 'localizacao_screen.dart';
 import 'leitor_screen.dart';
 import 'administrador_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+
   final TextEditingController _cpfController = TextEditingController();
+
   final TextEditingController _senhaController = TextEditingController();
 
   @override
@@ -80,6 +87,8 @@ class LoginScreen extends StatelessWidget {
           ],
         ),
       ),
+
+
     );
   }
 }
