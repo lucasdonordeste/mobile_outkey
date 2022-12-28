@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../../app_state.dart';
@@ -8,14 +11,16 @@ import '../../leitor/pages/leitor_screen.dart';
 import '../../administrador/pages/administrador_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final TextEditingController _cpfController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
+  bool _exibeMensagemErro = false;
 
   @override
   void initState() {
@@ -28,40 +33,64 @@ class _LoginScreenState extends State<LoginScreen> {
     final appState = Provider.of<AppState>(context);
 
     return Scaffold(
-      body: Center(
+        body: Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.lightBlue, Colors.purple],
+        ),
+      ),
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Lottie.network(
+              'https://assets5.lottiefiles.com/packages/lf20_KvK0ZJBQzu.json',
+              width: 200,
+              height: 200,
+            ),
+
             Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _cpfController,
-                decoration: InputDecoration(
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
                   hintText: 'CPF',
                 ),
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ),
+
             ),
             Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
                 obscureText: true,
                 controller: _senhaController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Senha',
+                ),
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
-                child: Text('Entrar'),
                 onPressed: () {
                   if (_cpfController.text == '12345678900' &&
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('A');
-                    //se o usuario estiver logado levar para a tela de home
-                    //se não estiver logado deixar na tela de login
+
                     if (appState.localizacao != false) {
                       Navigator.pushReplacement(
                         context,
@@ -82,8 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     appState.setLogado(true);
                     appState.setNivelAcesso('L');
 
-                    //se o usuario estiver logado levar para a tela de home
-                    //se não estiver logado deixar na tela de login
                     if (appState.localizacao != false) {
                       Navigator.pushReplacement(
                         context,
@@ -99,14 +126,41 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                     }
+                  } else {
+                    // exibe uma mensagem de erro
+                    _exibeMensagemErro = true;
+
                   }
                 },
+                // gradient: const LinearGradient(
+                //   colors: [Colors.lightBlue, Colors.purple],
+                // ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.arrow_forward),
+                    Text('Entrar'),
+                  ],
+                ),
               ),
             ),
+            Visibility(
+              visible: _exibeMensagemErro,
+              child: Text(
+                'Usuário ou senha inválidos',
+                style: GoogleFonts.lato(
+                  textStyle: const TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            )
+
+
           ],
         ),
       ),
-    );
+    ));
   }
 
   void checkIsLoggedIn() async {
