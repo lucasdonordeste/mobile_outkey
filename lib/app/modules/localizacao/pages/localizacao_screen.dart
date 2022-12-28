@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:mobile_outkey/administrador_screen.dart';
-import 'package:mobile_outkey/home_screen.dart';
-import 'package:mobile_outkey/user_controller.dart';
+import 'package:mobile_outkey/app/modules/administrador/pages/administrador_screen.dart';
+import 'package:mobile_outkey/app/modules/home/pages/home_screen.dart';
+import 'package:mobile_outkey/app/shared/services/user_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart' as ph;
 import 'package:geolocator/geolocator.dart';
 
-import 'app_state.dart';
-import 'leitor_screen.dart';
+import '../../../../app_state.dart';
+import '../../leitor/pages/leitor_screen.dart';
 
 class LocalizacaoScreen extends StatefulWidget {
   @override

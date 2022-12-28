@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mobile_outkey/user_controller.dart';
+import 'package:mobile_outkey/app/shared/services/user_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState with ChangeNotifier {
   bool _logado = false;
   bool _localizacao = false;
   late String _nivelAcesso;
-  late String _nome = 'Valcicley Alves';
+  late String _nome = 'Lucas Montiney';
   late String _cpf = '062.253.254-45';
   late int _idade = 18;
   late String _localizacaoAtual = '';
@@ -97,7 +97,7 @@ class AppState with ChangeNotifier {
 
   String get nivelAcesso => _nivelAcesso;
 
-  String get nome => 'Lucas Rodrigues';
+  String get nome => _nome;
 
   String get cpf => _cpf;
 

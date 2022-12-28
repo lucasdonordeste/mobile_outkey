@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
-import 'home_screen.dart';
-import 'login_screen.dart';
-import 'localizacao_screen.dart';
-import 'leitor_screen.dart';
-import 'administrador_screen.dart';
+import 'app/modules/home/pages/home_screen.dart';
+import 'app/modules/auth/pages/login_screen.dart';
+import 'app/modules/localizacao/pages/localizacao_screen.dart';
+import 'app/modules/leitor/pages/leitor_screen.dart';
+import 'app/modules/administrador/pages/administrador_screen.dart';
 
 void main() {
   runApp(

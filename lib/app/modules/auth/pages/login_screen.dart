@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'app_state.dart';
-import 'home_screen.dart';
-import 'localizacao_screen.dart';
-import 'leitor_screen.dart';
-import 'administrador_screen.dart';
+import '../../../../app_state.dart';
+import '../../home/pages/home_screen.dart';
+import '../../localizacao/pages/localizacao_screen.dart';
+import '../../leitor/pages/leitor_screen.dart';
+import '../../administrador/pages/administrador_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

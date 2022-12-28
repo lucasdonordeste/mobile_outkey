@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:mobile_outkey/login_screen.dart';
+import 'package:mobile_outkey/app/modules/auth/pages/login_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'app_state.dart';
-import 'home_screen.dart';
+import '../../../../app_state.dart';
+import '../../home/pages/home_screen.dart';
 
 class LeitorScreen extends StatefulWidget {
   @override
@@ -17,16 +17,7 @@ class _LeitorScreenState extends State<LeitorScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    List<String> nomes = [
-      'João',
-      'Maria',
-      'José',
-      'Ana',
-      'Carlos',
-      'Bruna',
-      'Mateus',
-      'Luana'
-    ];
+
     return Scaffold(
       body: Center(
         child: Column(
