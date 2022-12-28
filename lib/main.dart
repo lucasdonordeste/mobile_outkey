@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,23 +8,7 @@ import 'localizacao_screen.dart';
 import 'leitor_screen.dart';
 import 'administrador_screen.dart';
 
-
-void main( context) {
-  Future<void> checkIsLoggedIn() async {
-    final appState = Provider.of<AppState>(context, listen: false);
-    final isLoggedIn = await appState.checkIsLoggedIn();
-    if (isLoggedIn) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
-      );
-    }
-  }
-
-  checkIsLoggedIn();
-
+void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => AppState(),

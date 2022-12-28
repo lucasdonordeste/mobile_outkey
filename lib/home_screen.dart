@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'administrador_screen.dart';
 import 'app_state.dart';
 import 'leitor_screen.dart';
+import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,14 +14,81 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<AppState>(context);
     return Scaffold(
-
-      body: const Center(
-        child: Text('Seja bem-vindo à home'),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              color: Colors.grey[300], // cinza claro
+              child: GridView.count(
+                crossAxisCount: 2, // número de colunas do grid
+                mainAxisSpacing: 10, // espaçamento entre os itens na horizontal
+                crossAxisSpacing: 10, // espaçamento entre os itens na vertical
+                children:
+                    //se o usuario for um administrador, ele pode ver os outros administradores
+                    //se o usuario for um leitor, ele pode ver os outros leitores
+                appState.nivelAcesso == 'A'
+                        ? List.generate(appState.outrosAdministradores.length,
+                            (index) {
+                            final administrador =
+                                appState.outrosAdministradores[index];
+                            return Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(backgroundColor: Colors.grey),
+                                  Text(
+                                    administrador['nome'],
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    administrador['localizacaoAtual'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          })
+                        : List.generate(appState.outrosLeitores.length,
+                            (index) {
+                            final leitor = appState.outrosLeitores[index];
+                            return Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(backgroundColor: Colors.grey),
+                                  Text(
+                                    leitor['nome'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    leitor['localizacaoAtual'],
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+              ),
+            ),
+          ],
+        ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
@@ -56,8 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-
-
     );
   }
 }

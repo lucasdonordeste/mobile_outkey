@@ -1,5 +1,8 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:mobile_outkey/login_screen.dart';
 import 'package:provider/provider.dart';
+
 
 import 'app_state.dart';
 import 'home_screen.dart';
@@ -14,7 +17,7 @@ class _LeitorScreenState extends State<LeitorScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-
+    List<String> nomes = ['João', 'Maria', 'José', 'Ana', 'Carlos', 'Bruna', 'Mateus', 'Luana'];
     return Scaffold(
 
       body: Center(
@@ -22,7 +25,9 @@ class _LeitorScreenState extends State<LeitorScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Bem-vindo, leitor!'),
-            Text('Seu nome: ${appState.nome}'),
+            Text('Nome: Lucas Rodrigues'),
+
+
             Text('Sua idade: ${appState.idade}'),
             Text('Sua localização atual: ${appState.localizacaoAtual}'),
             Container(
@@ -37,12 +42,28 @@ class _LeitorScreenState extends State<LeitorScreen> {
                         backgroundColor: Colors.blue,
                         child: Text(leitor['nome'][0]),
                       ),
-                      title: Text(leitor['nome']),
+                      title: Text(
+                        //pegar o nomes[Random().nextInt(nomes.length)] para gerar nomes aleatórios apenas na primeira vez que o app é aberto
+                        nomes[Random().nextInt(nomes.length)],
+                      ),
                       subtitle: Text(leitor['localizacaoAtual']),
                     ),
                   );
                 },
               ),
+            ),
+            //botao de logout
+            ElevatedButton(
+              child: Text('Logout'),
+              onPressed: () {
+                appState.logout();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),

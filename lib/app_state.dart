@@ -8,7 +8,7 @@ class AppState with ChangeNotifier {
   late String _nome = '';
   late String _cpf = '';
   late int _idade = 0;
-  late String _localizacaoAtual;
+  late String _localizacaoAtual = '';
   List<Map<String, dynamic>> _outrosAdministradores = [
     {
       'nome': 'Administrador 1',
@@ -53,13 +53,23 @@ class AppState with ChangeNotifier {
     prefs.setBool('isLoggedIn', isLoggedIn);
   }
 
+  Future<void> saveNivelAcesso(String nivelAcesso) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('nivelAcesso', nivelAcesso);
+  }
+
 
   void setLogado(bool value) {
-    var _isLoggedIn = value;
+    _logado = value;
     saveLoginState(value);
     notifyListeners();
   }
 
+  void setNivelAcesso(String value) {
+    _nivelAcesso = value;
+    saveNivelAcesso(value);
+    notifyListeners();
+  }
 
   Future<bool> loadLoginState() async {
     final prefs = await SharedPreferences.getInstance();
@@ -105,10 +115,7 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setNivelAcesso(String value) {
-    _nivelAcesso = value;
-    notifyListeners();
-  }
+
 
   void setNome(String value) {
     _nome = value;
@@ -135,40 +142,8 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOutrosLeitores(List<Map<String, dynamic>> value) {
-    _outrosLeitores = value;
-    notifyListeners();
-  }
 
-  void addOutroAdministrador(Map<String, dynamic> value) {
-    _outrosAdministradores.add(value);
-    notifyListeners();
-  }
 
-  void addOutroLeitor(Map<String, dynamic> value) {
-    _outrosLeitores.add(value);
-    notifyListeners();
-  }
-
-  void removeOutroAdministrador(Map<String, dynamic> value) {
-    _outrosAdministradores.remove(value);
-    notifyListeners();
-  }
-
-  void removeOutroLeitor(Map<String, dynamic> value) {
-    _outrosLeitores.remove(value);
-    notifyListeners();
-  }
-
-  void clearOutrosAdministradores() {
-    _outrosAdministradores.clear();
-    notifyListeners();
-  }
-
-  void clearOutrosLeitores() {
-    _outrosLeitores.clear();
-    notifyListeners();
-  }
 
   checkIsLoggedIn() {
     if (_cpf == _adminMocado['cpf'] && _cpf == _leitorMocado['cpf']) {
@@ -180,5 +155,29 @@ class AppState with ChangeNotifier {
     } else {
       setNivelAcesso('Não logado');
     }
+  }
+
+  void logout() {
+    setLogado(false);
+    setNivelAcesso('Não logado');
+    setCpf('');
+    setIdade(0);
+    _localizacao = false;
+    _localizacaoAtual = '';
+
+  }
+
+  checkNivelAcesso() {
+if (_nivelAcesso == 'Administrador') {
+      setOutrosAdministradores(_outrosAdministradores);
+
+    } else if (_nivelAcesso == 'Leitor') {
+      setOutrosAdministradores([]);
+
+    } else {
+      setOutrosAdministradores([]);
+
+    }
+
   }
 }

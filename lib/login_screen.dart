@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_outkey/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_state.dart';
+import 'home_screen.dart';
 import 'localizacao_screen.dart';
 import 'leitor_screen.dart';
 import 'administrador_screen.dart';
@@ -20,16 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    loadLoginState().then((isLoggedIn) {
-      if (isLoggedIn) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LocalizacaoScreen(),
-          ),
-        );
-      }
-    });
+    checkIsLoggedIn();
   }
 
   @override
@@ -37,7 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final appState = Provider.of<AppState>(context);
 
     return Scaffold(
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -66,14 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 child: Text('Entrar'),
                 onPressed: () {
-
-
                   if (_cpfController.text == '12345678900' &&
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('A');
                     //se o usuario estiver logado levar para a tela de home
-                    //se nao estiver logadodeixar na tela de login
+                    //se não estiver logado deixar na tela de login
                     if (appState.logado) {
                       Navigator.pushReplacement(
                         context,
@@ -85,17 +72,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
+                          builder: (context) => LocalizacaoScreen(),
                         ),
                       );
                     }
-
                   } else if (_cpfController.text == '12345678901' &&
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('L');
                     //se o usuario estiver logado levar para a tela de home
-                    //se nao estiver logadodeixar na tela de login
+                    //se não estiver logado deixar na tela de login
                     if (appState.logado) {
                       Navigator.pushReplacement(
                         context,
@@ -107,12 +93,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
+                          builder: (context) => LeitorScreen(),
                         ),
                       );
                     }
                   }
-
                 },
               ),
             ),
@@ -122,33 +107,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<bool> loadLoginState() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false;
-  }
-
-  Future<void> saveLoginState(bool isLoggedIn) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isLoggedIn', isLoggedIn);
-  }
-
-  Future<void> saveNivelAcesso(String nivelAcesso) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('nivelAcesso', nivelAcesso);
-  }
-
-  Future<void> saveCpf(String cpf) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('cpf', cpf);
-  }
-
-  Future<void> saveNome(String nome) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('nome', nome);
-  }
-
-  Future<void> saveEmail(String email) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('email', email);
+  void checkIsLoggedIn() async {
+    final appState = Provider.of<AppState>(context, listen: false);
+    if (appState.logado) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+    }
   }
 }
