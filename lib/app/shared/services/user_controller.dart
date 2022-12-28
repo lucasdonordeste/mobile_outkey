@@ -44,7 +44,7 @@ class UserController extends ChangeNotifier {
     }
 
     return await Geolocator.getCurrentPosition(
-      //atualizar a pagina para pegar a nova localizacao
+
       desiredAccuracy: LocationAccuracy.high,
 
     );

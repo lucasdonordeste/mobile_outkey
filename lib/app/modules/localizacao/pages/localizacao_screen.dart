@@ -77,6 +77,7 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
                   appState.setLatitude(1);
 
                   Future.delayed(Duration(seconds: 3), () {
+
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HomeScreen()));
                   });
