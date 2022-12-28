@@ -26,7 +26,7 @@ class AppState with ChangeNotifier {
       'localizacaoAtual': 'São Paulo, SP',
     },
   ];
-  List<Map<String, dynamic>> _outrosLeitores = [
+  final List<Map<String, dynamic>> _outrosLeitores = [
     {
       'nome': 'Leitor 1',
       'cpf': '111.222.333-44',
@@ -97,7 +97,7 @@ class AppState with ChangeNotifier {
 
   String get nivelAcesso => _nivelAcesso;
 
-  String get nome => _nome;
+  String get nome => 'Lucas Rodrigues';
 
   String get cpf => _cpf;
 

@@ -117,41 +117,11 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
             ),
 
 
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              color: Colors.grey[300], // cinza claro
-              child: GridView.count(
-                crossAxisCount: 2, // número de colunas do grid
-                mainAxisSpacing: 10, // espaçamento entre os itens na horizontal
-                crossAxisSpacing: 10, // espaçamento entre os itens na vertical
-                children: List.generate(appState.outrosAdministradores.length,
-                    (index) {
-                  final administrador = appState.outrosAdministradores[index];
-                  return Card(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(backgroundColor: Colors.grey),
-                        Text(
-                          administrador['nome'],
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          administrador['localizacaoAtual'],
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ),
-            ),
 
-            //botao de logout
+      SizedBox(
+        height: 80,
+
+      ),
             ElevatedButton(
               child: Text('Logout'),
               onPressed: () {

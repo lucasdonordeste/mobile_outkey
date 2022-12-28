@@ -15,18 +15,31 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
+
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
+
+
+    Color? backgroundColor;
+    if (appState.nivelAcesso == 'L') {
+      backgroundColor = Colors.lightBlue;
+    } else if (appState.nivelAcesso == 'A') {
+      backgroundColor = Colors.grey[300]  ;
+    }
+
     return Scaffold(
+        backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 100),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text('Bem-vindo, ${appState.nome}!'),
             Container(
-              height: MediaQuery.of(context).size.height * 0.3,
-              color: Colors.grey[300], // cinza claro
+              height: MediaQuery.of(context).size.height * 0.7,
+              // color: Colors.grey[300], // cinza claro
               child: GridView.count(
                 crossAxisCount: 2, // número de colunas do grid
                 mainAxisSpacing: 10, // espaçamento entre os itens na horizontal
@@ -39,48 +52,63 @@ class _HomeScreenState extends State<HomeScreen> {
                             (index) {
                             final administrador =
                                 appState.outrosAdministradores[index];
-                            return Card(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(backgroundColor: Colors.grey),
-                                  Text(
-                                    administrador['nome'],
-                                    style: const TextStyle(
-                                      fontSize: 20,
+                            return Container(
+                              width: 80,
+                              height: 80,
+                              padding: const EdgeInsets.all(10),
+                              child: Card(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const CircleAvatar(backgroundColor: Colors.grey, child: Icon(Icons.person),
+                                    radius: 30,),
+
+                                    Text(
+                                      administrador['nome'],
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    administrador['localizacaoAtual'],
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    Text(
+                                      administrador['localizacaoAtual'],
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             );
                           })
                         : List.generate(appState.outrosLeitores.length,
                             (index) {
                             final leitor = appState.outrosLeitores[index];
-                            return Card(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(backgroundColor: Colors.grey),
-                                  Text(
-                                    leitor['nome'],
-                                    style: TextStyle(
-                                      fontSize: 20,
+                            return Container(
+                              width: 80,
+                              height: 80,
+                              padding: const EdgeInsets.all(10),
+                              child: Card(
+
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const CircleAvatar(backgroundColor: Colors.grey,child: Icon(Icons.person),
+                                    radius: 30,
                                     ),
-                                  ),
-                                  Text(
-                                    leitor['localizacaoAtual'],
-                                    style: TextStyle(
-                                      fontSize: 20,
+                                    Text(
+                                      leitor['nome'],
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Text(
+                                      leitor['localizacaoAtual'],
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           }),

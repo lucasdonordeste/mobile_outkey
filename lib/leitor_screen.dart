@@ -33,36 +33,15 @@ class _LeitorScreenState extends State<LeitorScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Bem-vindo, leitor!'),
-            Text('Nome: Lucas Rodrigues'),
+            Text('Nome: ${appState.nome}'),
 
             Text('Sua idade: ${appState.idade}'),
             Text(
                 'Sua localização atual: ${appState.latitude} | ${appState.longitude}'),
-            Container(
-              height: 200,
-              child: ListView.builder(
-                itemCount: appState.outrosLeitores.length,
-                itemBuilder: (context, index) {
-                  final leitor = appState.outrosLeitores[index];
-                  return Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        child: Text(leitor['nome'][0]),
-                      ),
-                      title: Text(
-                        //pegar o nomes[Random().nextInt(nomes.length)] para gerar nomes aleatórios apenas na primeira vez que o app é aberto
-                        nomes.length > 0
-                            ? nomes.removeAt(Random().nextInt(nomes.length))
-                            : leitor['nome'],
-                      ),
-                      subtitle: Text(leitor['localizacaoAtual']),
-                    ),
-                  );
-                },
-              ),
+            Text('Seu nível de acesso: ${appState.nivelAcesso}'),
+            const SizedBox(
+              height: 50,
             ),
-            //botao de logout
             ElevatedButton(
               child: Text('Logout'),
               onPressed: () {
