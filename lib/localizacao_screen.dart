@@ -44,15 +44,16 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
   listenPosition() async {
     ph.PermissionStatus permission = await ph.Permission.location.request();
 
-    if (permission.isDenied)
+    if (permission.isDenied) {
       _showMessage(
           'Parece que você não permitiu o uso do GPS, abra as configurações do aplicativo e libere a permissão');
-    else {
+    } else {
       bool gpsIsEnabled = await Geolocator.isLocationServiceEnabled();
 
-      if (!gpsIsEnabled)
+      if (!gpsIsEnabled) {
         _showMessage
           ('Parece que o GPS está desativado, ative-o e tente novamente');
+      }
       setState(() {
         status = 'Obtendo a localização';
       });

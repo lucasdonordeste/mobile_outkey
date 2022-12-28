@@ -44,7 +44,7 @@ class _LeitorScreenState extends State<LeitorScreen> {
                       ),
                       title: Text(
                         //pegar o nomes[Random().nextInt(nomes.length)] para gerar nomes aleatórios apenas na primeira vez que o app é aberto
-                        nomes[Random().nextInt(nomes.length)],
+                        nomes.length > 0 ? nomes.removeAt(Random().nextInt(nomes.length)) : leitor['nome'],
                       ),
                       subtitle: Text(leitor['localizacaoAtual']),
                     ),

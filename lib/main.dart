@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,20 +22,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appState = Provider.of<AppState>(context);
-
     return MaterialApp(
-      title: 'Meu Aplicativo',
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: appState.logado
-          ? appState.localizacao
-              ? appState.nivelAcesso == 'L'
-                  ? LeitorScreen()
-                  : AdministradorScreen()
-              : LocalizacaoScreen()
-          : LoginScreen(),
+      home: LoginScreen(),
+      routes: {
+        '/home': (context) => HomeScreen(),
+        '/localizacao': (context) => LocalizacaoScreen(),
+        '/leitor': (context) => LeitorScreen(),
+        '/administrador': (context) => AdministradorScreen(),
+      },
     );
   }
 }
+
