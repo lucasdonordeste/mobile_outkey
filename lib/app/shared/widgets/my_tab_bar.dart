@@ -5,6 +5,7 @@ class MyTabBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
+
   const MyTabBar({
     required Key key,
     required this.currentIndex,
@@ -22,8 +23,9 @@ class MyTabBar extends StatelessWidget {
           label: 'Home',
         ),
         BottomNavigationBarItem(
+          //Usar FluttermojiCircleAvatar para o ícon da tab bar
           icon: Icon(Icons.person),
-          label: 'Login',
+          label: 'Perfil',
         ),
       ],
     );

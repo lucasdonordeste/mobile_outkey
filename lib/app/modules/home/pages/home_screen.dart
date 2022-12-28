@@ -15,22 +15,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-
-
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
-
     Color? backgroundColor;
     if (appState.nivelAcesso == 'L') {
-      backgroundColor = Colors.lightBlue;
+      backgroundColor = Colors.lightBlue[50];
     } else if (appState.nivelAcesso == 'A') {
-      backgroundColor = Colors.grey[300]  ;
+      backgroundColor = Colors.grey[300];
     }
 
     return Scaffold(
-        backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 100),
         child: Column(
@@ -38,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             Text('Bem-vindo, ${appState.nome}!'),
             Container(
+              padding: EdgeInsets.only(top: 20, right: 20, left: 20),
               height: MediaQuery.of(context).size.height * 0.7,
               // color: Colors.grey[300], // cinza claro
               child: GridView.count(
@@ -47,36 +45,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 children:
                     //se o usuario for um administrador, ele pode ver os outros administradores
                     //se o usuario for um leitor, ele pode ver os outros leitores
-                appState.nivelAcesso == 'A'
+                    appState.nivelAcesso == 'A'
                         ? List.generate(appState.outrosAdministradores.length,
                             (index) {
                             final administrador =
                                 appState.outrosAdministradores[index];
                             return Container(
-                              width: 80,
-                              height: 80,
-                              padding: const EdgeInsets.all(10),
-                              child: Card(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const CircleAvatar(backgroundColor: Colors.grey, child: Icon(Icons.person),
-                                    radius: 30,),
 
-                                    Text(
-                                      administrador['nome'],
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
+                              width: 60,
+                              height: 60,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 2,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
+                                    'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png',
+                                    width: 80,
+                                    height: 80,
+                                  ),
+                                  Text(
+                                    administrador['nome'],
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 13,
                                     ),
-                                    Text(
-                                      administrador['localizacaoAtual'],
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ),
+                                  ),
+                                  Text(
+                                    administrador['localizacaoAtual'],
+                                    style: const TextStyle(
+                                      fontSize: 11,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             );
                           })
@@ -84,31 +95,42 @@ class _HomeScreenState extends State<HomeScreen> {
                             (index) {
                             final leitor = appState.outrosLeitores[index];
                             return Container(
-                              width: 80,
-                              height: 80,
-                              padding: const EdgeInsets.all(10),
-                              child: Card(
-
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const CircleAvatar(backgroundColor: Colors.grey,child: Icon(Icons.person),
-                                    radius: 30,
+                              width: 60,
+                              height: 60,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 2,
+                                    spreadRadius: 2,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
+                                    'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png',
+                                    width: 80,
+                                    height: 80,
+                                  ),
+                                  Text(
+                                    leitor['nome'],
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 13,
                                     ),
-                                    Text(
-                                      leitor['nome'],
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                      ),
+                                  ),
+                                  Text(
+                                    leitor['localizacaoAtual'],
+                                    style: const TextStyle(
+                                      fontSize: 11,
                                     ),
-                                    Text(
-                                      leitor['localizacaoAtual'],
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             );
                           }),
@@ -149,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Login',
+            label: 'Perfil',
           ),
         ],
       ),

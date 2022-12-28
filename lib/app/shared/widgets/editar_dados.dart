@@ -97,12 +97,12 @@ class _EditionAvatarState extends State<EditionAvatar> {
                   scaffoldHeight: MediaQuery.of(context).size.height * 0.40,
                   autosave: true,
                   theme: FluttermojiThemeData(
-                      primaryBgColor: Colors.white,
+                      primaryBgColor: Colors.lightBlue[50],
                       secondaryBgColor: Colors.grey[200],
                       selectedTileDecoration: BoxDecoration(
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(10)),
-                      unselectedIconColor: Colors.white,
+                      unselectedIconColor: Colors.grey[400],
                       iconColor: Colors.white,
                       unselectedTileDecoration: BoxDecoration(
                           color: Colors.grey[200],

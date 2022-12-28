@@ -23,6 +23,7 @@ dependencies:
   http: ^0.13.5
   google_fonts: ^3.0.1
   lottie: ^2.1.0
+  loading_overlay: ^0.3.0
 
   cupertino_icons: ^1.0.2
   fluttermoji: ^1.0.1

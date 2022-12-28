@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_outkey/app/modules/administrador/pages/administrador_screen.dart';
 import 'package:mobile_outkey/app/modules/home/pages/home_screen.dart';
@@ -24,22 +25,18 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-
-
-
+    bool _saving = false;
     Color? backgroundColor;
     if (appState.nivelAcesso == 'L') {
-      backgroundColor = Colors.lightBlue;
+      backgroundColor = Colors.lightBlue[50];
     } else if (appState.nivelAcesso == 'A') {
-      backgroundColor = Colors.grey[300]  ;
+      backgroundColor = Colors.grey[300];
     }
     return Scaffold(
         backgroundColor: backgroundColor,
-
         body: SingleChildScrollView(
           child: Column(
             children: [
-
               const SizedBox(
                 height: 50,
               ),
@@ -71,19 +68,25 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
 
                     return Center(child: Text(mensagem));
                   })),
-const SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               ElevatedButton(
-                  onPressed: () {
-                    appState.setLatitude(1);
+                onPressed: () {
+                  _saving = true;
+                  appState.setLatitude(1);
 
-                    Future.delayed(Duration(seconds: 3), () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()));
-                    });
-                  },
-                  child: const Text('Continuar')),
+                  Future.delayed(Duration(seconds: 3), () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  });
+                },
+                child:
+                    //aparecer um loading de 3 segundos depois de clicar no botão continuar
+                    LoadingOverlay(isLoading: _saving, child: Text('Continuar'),
+                        progressIndicator: CircularProgressIndicator()),
+
+              ),
             ],
           ),
         ));

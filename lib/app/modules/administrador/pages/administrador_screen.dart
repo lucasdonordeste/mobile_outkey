@@ -21,8 +21,14 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-
+    Color? backgroundColor;
+    if (appState.nivelAcesso == 'L') {
+      backgroundColor = Colors.lightBlue[50];
+    } else if (appState.nivelAcesso == 'A') {
+      backgroundColor = Colors.grey[300];
+    }
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 100),
         child: Center(
@@ -90,7 +96,7 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Login',
+            label: 'Perfil',
           ),
         ],
       ),
