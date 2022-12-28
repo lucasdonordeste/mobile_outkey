@@ -11,7 +11,7 @@ class AdministradorScreen extends StatefulWidget {
 }
 
 class _AdministradorScreenState extends State<AdministradorScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   bool _editandoDados = false;
 
   @override
@@ -52,6 +52,7 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
                       decoration: InputDecoration(
                         hintText: 'CPF',
                       ),
+                      keyboardType: TextInputType.number,
                       onChanged: (value) {
                         appState.setCpf(value);
                       },
@@ -79,11 +80,42 @@ class _AdministradorScreenState extends State<AdministradorScreen> {
             ElevatedButton(
               child: Text(_editandoDados ? 'Concluir' : 'Editar'),
               onPressed: () {
-                setState(() {
-                  _editandoDados = !_editandoDados;
-                });
+                if (_editandoDados && appState.idade < 18) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Idade inválida'),
+                        content: Text('A idade deve ser maior ou igual a 18'),
+                        actions: [
+                          ElevatedButton(
+                            child: Text('Ok'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  setState(() {
+                    _editandoDados = !_editandoDados;
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Dados atualizados'),
+                          content: Text('Seus dados foram atualizados com sucesso!'),
+
+                        );
+                      },
+                    );
+                  });
+                }
               },
             ),
+
 
             Container(
               height: MediaQuery.of(context).size.height * 0.3,

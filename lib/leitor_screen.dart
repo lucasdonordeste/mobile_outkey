@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_outkey/login_screen.dart';
 import 'package:provider/provider.dart';
 
-
 import 'app_state.dart';
 import 'home_screen.dart';
 
@@ -13,13 +12,22 @@ class LeitorScreen extends StatefulWidget {
 }
 
 class _LeitorScreenState extends State<LeitorScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
-    List<String> nomes = ['João', 'Maria', 'José', 'Ana', 'Carlos', 'Bruna', 'Mateus', 'Luana'];
+    List<String> nomes = [
+      'João',
+      'Maria',
+      'José',
+      'Ana',
+      'Carlos',
+      'Bruna',
+      'Mateus',
+      'Luana'
+    ];
     return Scaffold(
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -27,9 +35,9 @@ class _LeitorScreenState extends State<LeitorScreen> {
             Text('Bem-vindo, leitor!'),
             Text('Nome: Lucas Rodrigues'),
 
-
             Text('Sua idade: ${appState.idade}'),
-            Text('Sua localização atual: ${appState.latitude} | ${appState.longitude}'),
+            Text(
+                'Sua localização atual: ${appState.latitude} | ${appState.longitude}'),
             Container(
               height: 200,
               child: ListView.builder(
@@ -44,7 +52,9 @@ class _LeitorScreenState extends State<LeitorScreen> {
                       ),
                       title: Text(
                         //pegar o nomes[Random().nextInt(nomes.length)] para gerar nomes aleatórios apenas na primeira vez que o app é aberto
-                        nomes.length > 0 ? nomes.removeAt(Random().nextInt(nomes.length)) : leitor['nome'],
+                        nomes.length > 0
+                            ? nomes.removeAt(Random().nextInt(nomes.length))
+                            : leitor['nome'],
                       ),
                       subtitle: Text(leitor['localizacaoAtual']),
                     ),

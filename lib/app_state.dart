@@ -6,9 +6,9 @@ class AppState with ChangeNotifier {
   bool _logado = false;
   bool _localizacao = false;
   late String _nivelAcesso;
-  late String _nome = '';
-  late String _cpf = '';
-  late int _idade = 0;
+  late String _nome = 'Valcicley Alves';
+  late String _cpf = '062.253.254-45';
+  late int _idade = 18;
   late String _localizacaoAtual = '';
 
  UserController userController = UserController();
