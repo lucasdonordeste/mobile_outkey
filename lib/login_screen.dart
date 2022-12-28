@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app_state.dart';
 import 'localizacao_screen.dart';
@@ -12,19 +13,30 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final TextEditingController _cpfController = TextEditingController();
-
   final TextEditingController _senhaController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    loadLoginState().then((isLoggedIn) {
+      if (isLoggedIn) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LocalizacaoScreen(),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Text('Entrar'),
                 onPressed: () {
                   if (_cpfController.text == '12345678900' &&
-                      _senhaController.text == '123456') {
+                      _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('A');
                     Navigator.push(
@@ -64,8 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     );
                   } else if (_cpfController.text == '12345678901' &&
-
-                      _senhaController.text == '123456') {
+                      _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('L');
                     Navigator.push(
@@ -74,12 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (context) => LocalizacaoScreen(),
                       ),
                     );
-                  } else {
-
-                      const SnackBar(
-                        content: Text('CPF ou senha incorretos'),
-
-                    );
                   }
                 },
               ),
@@ -87,8 +92,36 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-
-
     );
+  }
+
+  Future<bool> loadLoginState() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isLoggedIn') ?? false;
+  }
+
+  Future<void> saveLoginState(bool isLoggedIn) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', isLoggedIn);
+  }
+
+  Future<void> saveNivelAcesso(String nivelAcesso) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('nivelAcesso', nivelAcesso);
+  }
+
+  Future<void> saveCpf(String cpf) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('cpf', cpf);
+  }
+
+  Future<void> saveNome(String nome) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('nome', nome);
+  }
+
+  Future<void> saveEmail(String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', email);
   }
 }

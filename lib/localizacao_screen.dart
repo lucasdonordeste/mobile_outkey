@@ -36,8 +36,17 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
 
   @override
   void initState() {
-    listenPosition();
     super.initState();
+    loadLoginState().then((isLoggedIn) {
+      if (isLoggedIn) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LocalizacaoScreen(),
+          ),
+        );
+      }
+    });
   }
 
   listenPosition() async {
@@ -91,9 +100,7 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
     Widget build(BuildContext context) {
       final appState = Provider.of<AppState>(context);
       return Scaffold(
-        appBar: AppBar(
-          title: Text('Solicitação de localização'),
-        ),
+
         body: Center(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -132,5 +139,10 @@ class _LocalizacaoScreenState extends State<LocalizacaoScreen> {
         ),
       ])),
     );
+  }
+
+  loadLoginState() {
+   //levar para a home screen se o usuário já estiver logado
+    return Future.value(false);
   }
 }

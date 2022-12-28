@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppState with ChangeNotifier {
   bool _logado = false;
@@ -43,6 +44,30 @@ class AppState with ChangeNotifier {
     },
   ];
 
+  bool get isLogado => _logado;
+
+
+
+  Future<void> saveLoginState(bool isLoggedIn) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', isLoggedIn);
+  }
+
+
+  void setLogado(bool value) {
+    var _isLoggedIn = value;
+    saveLoginState(value);
+    notifyListeners();
+  }
+
+
+  Future<bool> loadLoginState() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isLoggedIn') ?? false;
+  }
+
+
+
 
   final Map<String, dynamic> _adminMocado = {
     'cpf': '123.456.789-00',
@@ -72,10 +97,8 @@ class AppState with ChangeNotifier {
 
   List<Map<String, dynamic>> get outrosLeitores => _outrosLeitores;
 
-  void setLogado(bool value) {
-    _logado = value;
-    notifyListeners();
-  }
+
+
 
   void setLocalizacao(bool value) {
     _localizacao = value;
@@ -145,5 +168,17 @@ class AppState with ChangeNotifier {
   void clearOutrosLeitores() {
     _outrosLeitores.clear();
     notifyListeners();
+  }
+
+  checkIsLoggedIn() {
+    if (_cpf == _adminMocado['cpf'] && _cpf == _leitorMocado['cpf']) {
+      setNivelAcesso('Administrador');
+    } else if (_cpf == _adminMocado['cpf']) {
+      setNivelAcesso('Administrador');
+    } else if (_cpf == _leitorMocado['cpf']) {
+      setNivelAcesso('Leitor');
+    } else {
+      setNivelAcesso('Não logado');
+    }
   }
 }
