@@ -133,7 +133,7 @@ class AppState with ChangeNotifier {
   }
 
   void setLocalizacaoAtual(String value) {
-    _localizacao = value as bool;
+    _localizacaoAtual = value;
     notifyListeners();
   }
 

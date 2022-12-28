@@ -80,9 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       _senhaController.text == '123') {
                     appState.setLogado(true);
                     appState.setNivelAcesso('L');
+
                     //se o usuario estiver logado levar para a tela de home
                     //se não estiver logado deixar na tela de login
-                    if (appState.logado) {
+                    if (appState.localizacao != false) {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -93,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LeitorScreen(),
+                          builder: (context) => LocalizacaoScreen(),
                         ),
                       );
                     }
